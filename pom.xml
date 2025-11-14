@@ -87,7 +87,7 @@
 
                         <!-- 使用Eclipse JDT格式化器 -->
                         <eclipse>
-                            <version>4.32.0</version>
+                            <version>4.32</version>
                             <file>${project.basedir}/eclipse-formatter.xml</file>
                         </eclipse>
 
