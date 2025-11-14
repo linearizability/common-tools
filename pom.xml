@@ -80,6 +80,11 @@
                             <include>src/test/java/**/*.java</include>
                         </includes>
 
+                        <!-- 排除的文件 -->
+                        <excludes>
+                            <exclude>**/generated/**/*.java</exclude>
+                        </excludes>
+
                         <!-- 使用Eclipse JDT格式化器 -->
                         <eclipse>
                             <version>4.32.0</version>
@@ -93,21 +98,6 @@
                         <importOrder>
                             <order>java,javax,org,com,</order>
                         </importOrder>
-
-                        <!-- 格式化注解 -->
-                        <formatAnnotations/>
-
-                        <!-- 使用4个空格缩进 -->
-                        <indent>
-                            <spaces>true</spaces>
-                            <spacesPerTab>4</spacesPerTab>
-                        </indent>
-
-                        <!-- 去除行尾空格 -->
-                        <trimTrailingWhitespace/>
-
-                        <!-- 文件末尾添加换行符 -->
-                        <endWithNewline/>
 
                         <!-- 将单行JavaDoc转换为多行格式 -->
                         <replaceRegex>
