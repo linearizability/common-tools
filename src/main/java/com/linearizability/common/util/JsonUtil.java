@@ -1,5 +1,10 @@
 package com.linearizability.common.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -12,17 +17,11 @@ import com.jayway.jsonpath.*;
 import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-
 /**
- * JSON工具类
- * 提供JSON序列化和反序列化的常用方法
+ * JSON工具类 提供JSON序列化和反序列化的常用方法
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class JsonUtil {
 
@@ -39,11 +38,8 @@ public class JsonUtil {
     /**
      * JSONPath配置（使用Jackson作为JSON提供者）
      */
-    private static final Configuration JSONPATH_CONFIG = Configuration.builder()
-        .jsonProvider(new JacksonJsonProvider())
-        .mappingProvider(new JacksonMappingProvider())
-        .options(Option.SUPPRESS_EXCEPTIONS)
-        .build();
+    private static final Configuration JSONPATH_CONFIG = Configuration.builder().jsonProvider(new JacksonJsonProvider())
+            .mappingProvider(new JacksonMappingProvider()).options(Option.SUPPRESS_EXCEPTIONS).build();
 
     /**
      * JSONPath解析上下文（线程安全）
@@ -82,8 +78,8 @@ public class JsonUtil {
     /**
      * 对象转JSON字符串
      *
-     * @param obj 待转换的对象
-     * @return JSON字符串
+     * @param  obj              待转换的对象
+     * @return                  JSON字符串
      * @throws RuntimeException 转换失败时抛出
      */
     public static String toJson(Object obj) {
@@ -100,8 +96,8 @@ public class JsonUtil {
     /**
      * 对象转JSON字符串（格式化输出）
      *
-     * @param obj 待转换的对象
-     * @return 格式化后的JSON字符串
+     * @param  obj              待转换的对象
+     * @return                  格式化后的JSON字符串
      * @throws RuntimeException 转换失败时抛出
      */
     public static String toPrettyJson(Object obj) {
@@ -118,10 +114,10 @@ public class JsonUtil {
     /**
      * JSON字符串转对象
      *
-     * @param json  JSON字符串
-     * @param clazz 目标类型
-     * @param <T>   目标类型
-     * @return 转换后的对象
+     * @param  json             JSON字符串
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> T fromJson(String json, Class<T> clazz) {
@@ -138,10 +134,10 @@ public class JsonUtil {
     /**
      * JSON字符串转对象（支持泛型）
      *
-     * @param json          JSON字符串
-     * @param typeReference 类型引用
-     * @param <T>           目标类型
-     * @return 转换后的对象
+     * @param  json             JSON字符串
+     * @param  typeReference    类型引用
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> T fromJson(String json, TypeReference<T> typeReference) {
@@ -158,10 +154,10 @@ public class JsonUtil {
     /**
      * JSON字符串转List
      *
-     * @param json  JSON字符串
-     * @param clazz List元素类型
-     * @param <T>   元素类型
-     * @return List对象
+     * @param  json             JSON字符串
+     * @param  clazz            List元素类型
+     * @param  <T>              元素类型
+     * @return                  List对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> List<T> fromJsonToList(String json, Class<T> clazz) {
@@ -170,7 +166,7 @@ public class JsonUtil {
         }
         try {
             return DEFAULT_MAPPER.readValue(json,
-                DEFAULT_MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
+                    DEFAULT_MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON转List失败: " + e.getMessage(), e);
         }
@@ -179,8 +175,8 @@ public class JsonUtil {
     /**
      * JSON字符串转Map
      *
-     * @param json JSON字符串
-     * @return Map对象
+     * @param  json             JSON字符串
+     * @return                  Map对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static Map<String, Object> fromJsonToMap(String json) {
@@ -194,10 +190,10 @@ public class JsonUtil {
     /**
      * 从输入流读取JSON并转换为对象
      *
-     * @param inputStream 输入流
-     * @param clazz       目标类型
-     * @param <T>         目标类型
-     * @return 转换后的对象
+     * @param  inputStream      输入流
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> T fromJson(InputStream inputStream, Class<T> clazz) {
@@ -214,8 +210,8 @@ public class JsonUtil {
     /**
      * 对象转JSON字节数组
      *
-     * @param obj 待转换的对象
-     * @return JSON字节数组
+     * @param  obj              待转换的对象
+     * @return                  JSON字节数组
      * @throws RuntimeException 转换失败时抛出
      */
     public static byte[] toJsonBytes(Object obj) {
@@ -232,10 +228,10 @@ public class JsonUtil {
     /**
      * JSON字节数组转对象
      *
-     * @param bytes JSON字节数组
-     * @param clazz 目标类型
-     * @param <T>   目标类型
-     * @return 转换后的对象
+     * @param  bytes            JSON字节数组
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> T fromJson(byte[] bytes, Class<T> clazz) {
@@ -252,8 +248,8 @@ public class JsonUtil {
     /**
      * 对象转JsonNode
      *
-     * @param obj 待转换的对象
-     * @return JsonNode对象
+     * @param  obj              待转换的对象
+     * @return                  JsonNode对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static JsonNode toJsonNode(Object obj) {
@@ -266,8 +262,8 @@ public class JsonUtil {
     /**
      * JSON字符串转JsonNode
      *
-     * @param json JSON字符串
-     * @return JsonNode对象
+     * @param  json             JSON字符串
+     * @return                  JsonNode对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static JsonNode parseJson(String json) {
@@ -284,8 +280,8 @@ public class JsonUtil {
     /**
      * 验证JSON字符串是否有效
      *
-     * @param json JSON字符串
-     * @return true表示有效，false表示无效
+     * @param  json JSON字符串
+     * @return      true表示有效，false表示无效
      */
     public static boolean isValid(String json) {
         if (json == null || json.trim().isEmpty()) {
@@ -302,8 +298,8 @@ public class JsonUtil {
     /**
      * 对象转Map
      *
-     * @param obj 待转换的对象
-     * @return Map对象
+     * @param  obj              待转换的对象
+     * @return                  Map对象
      * @throws RuntimeException 转换失败时抛出
      */
     @SuppressWarnings("unchecked")
@@ -317,10 +313,10 @@ public class JsonUtil {
     /**
      * Map转对象
      *
-     * @param map   Map对象
-     * @param clazz 目标类型
-     * @param <T>   目标类型
-     * @return 转换后的对象
+     * @param  map              Map对象
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     public static <T> T fromMap(Map<String, Object> map, Class<T> clazz) {
@@ -333,10 +329,10 @@ public class JsonUtil {
     /**
      * 深拷贝对象（通过JSON序列化和反序列化）
      *
-     * @param obj   待拷贝的对象
-     * @param clazz 目标类型
-     * @param <T>   目标类型
-     * @return 拷贝后的对象
+     * @param  obj              待拷贝的对象
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  拷贝后的对象
      * @throws RuntimeException 拷贝失败时抛出
      */
     public static <T> T deepClone(Object obj, Class<T> clazz) {
@@ -350,9 +346,9 @@ public class JsonUtil {
     /**
      * 深拷贝对象（保持原类型）
      *
-     * @param obj 待拷贝的对象
-     * @param <T> 目标类型
-     * @return 拷贝后的对象
+     * @param  obj              待拷贝的对象
+     * @param  <T>              目标类型
+     * @return                  拷贝后的对象
      * @throws RuntimeException 拷贝失败时抛出
      */
     @SuppressWarnings("unchecked")
@@ -387,10 +383,10 @@ public class JsonUtil {
     /**
      * 读取JSONPath路径的值
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式（如：$.user.name）
-     * @param <T>      返回值类型
-     * @return 路径对应的值，如果路径不存在返回null
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式（如：$.user.name）
+     * @param  <T>              返回值类型
+     * @return                  路径对应的值，如果路径不存在返回null
      * @throws RuntimeException 解析失败时抛出
      */
     public static <T> T readPath(Object json, String jsonPath) {
@@ -408,11 +404,11 @@ public class JsonUtil {
     /**
      * 读取JSONPath路径的值（指定返回类型）
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param clazz    返回类型
-     * @param <T>      返回值类型
-     * @return 路径对应的值，如果路径不存在返回null
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  clazz            返回类型
+     * @param  <T>              返回值类型
+     * @return                  路径对应的值，如果路径不存在返回null
      * @throws RuntimeException 解析失败时抛出
      */
     public static <T> T readPath(Object json, String jsonPath, Class<T> clazz) {
@@ -430,11 +426,11 @@ public class JsonUtil {
     /**
      * 读取JSONPath路径的值（支持泛型）
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param typeRef  类型引用
-     * @param <T>      返回值类型
-     * @return 路径对应的值，如果路径不存在返回null
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  typeRef          类型引用
+     * @param  <T>              返回值类型
+     * @return                  路径对应的值，如果路径不存在返回null
      * @throws RuntimeException 解析失败时抛出
      */
     public static <T> T readPath(Object json, String jsonPath, TypeRef<T> typeRef) {
@@ -452,11 +448,11 @@ public class JsonUtil {
     /**
      * 读取JSONPath路径的值列表
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param clazz    列表元素类型
-     * @param <T>      元素类型
-     * @return 值列表，如果路径不存在返回空列表
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  clazz            列表元素类型
+     * @param  <T>              元素类型
+     * @return                  值列表，如果路径不存在返回空列表
      * @throws RuntimeException 解析失败时抛出
      */
     @SuppressWarnings("unchecked")
@@ -487,9 +483,9 @@ public class JsonUtil {
     /**
      * 检查JSONPath路径是否存在
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @return true表示路径存在，false表示不存在
+     * @param  json     JSON字符串或对象
+     * @param  jsonPath JSONPath表达式
+     * @return          true表示路径存在，false表示不存在
      */
     public static boolean isPathExists(Object json, String jsonPath) {
         if (json == null || jsonPath == null || jsonPath.trim().isEmpty()) {
@@ -507,10 +503,10 @@ public class JsonUtil {
     /**
      * 设置JSONPath路径的值
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param value    要设置的值
-     * @return 修改后的JSON字符串
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  value            要设置的值
+     * @return                  修改后的JSON字符串
      * @throws RuntimeException 设置失败时抛出
      */
     public static String setPath(Object json, String jsonPath, Object value) {
@@ -529,9 +525,9 @@ public class JsonUtil {
     /**
      * 删除JSONPath路径的值
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @return 修改后的JSON字符串
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @return                  修改后的JSON字符串
      * @throws RuntimeException 删除失败时抛出
      */
     public static String deletePath(Object json, String jsonPath) {
@@ -550,10 +546,10 @@ public class JsonUtil {
     /**
      * 添加值到JSONPath路径（用于数组）
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param value    要添加的值
-     * @return 修改后的JSON字符串
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  value            要添加的值
+     * @return                  修改后的JSON字符串
      * @throws RuntimeException 添加失败时抛出
      */
     public static String addPath(Object json, String jsonPath, Object value) {
@@ -572,11 +568,11 @@ public class JsonUtil {
     /**
      * 将JSONPath路径的值转换为对象
      *
-     * @param json     JSON字符串或对象
-     * @param jsonPath JSONPath表达式
-     * @param clazz    目标类型
-     * @param <T>      目标类型
-     * @return 转换后的对象
+     * @param  json             JSON字符串或对象
+     * @param  jsonPath         JSONPath表达式
+     * @param  clazz            目标类型
+     * @param  <T>              目标类型
+     * @return                  转换后的对象
      * @throws RuntimeException 转换失败时抛出
      */
     @SuppressWarnings("unchecked")
@@ -591,4 +587,3 @@ public class JsonUtil {
         return fromMap((Map<String, Object>) value, clazz);
     }
 }
-

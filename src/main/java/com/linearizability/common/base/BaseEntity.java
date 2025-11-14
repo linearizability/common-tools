@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 实体类基类
- * 所有实体类应继承此类，提供通用的实体字段
+ * 实体类基类 所有实体类应继承此类，提供通用的实体字段
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public abstract class BaseEntity implements Serializable {
 
@@ -158,15 +157,8 @@ public abstract class BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "BaseEntity{" +
-            "id=" + id +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            ", createBy=" + createBy +
-            ", updateBy=" + updateBy +
-            ", deleted=" + deleted +
-            ", version=" + version +
-            ", remark='" + remark + '\'' +
-            '}';
+        return "BaseEntity{" + "id=" + id + ", createTime=" + createTime + ", updateTime=" + updateTime + ", createBy="
+                + createBy + ", updateBy=" + updateBy + ", deleted=" + deleted + ", version=" + version + ", remark='"
+                + remark + '\'' + '}';
     }
 }

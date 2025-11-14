@@ -1,11 +1,10 @@
 package com.linearizability.common.exception;
 
 /**
- * 系统异常类
- * 用于处理系统级别的异常（如数据库连接失败、外部服务调用失败等）
+ * 系统异常类 用于处理系统级别的异常（如数据库连接失败、外部服务调用失败等）
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class SystemException extends BaseException {
 
@@ -36,4 +35,3 @@ public class SystemException extends BaseException {
         super(code, message, data, cause);
     }
 }
-

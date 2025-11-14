@@ -52,4 +52,104 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- Maven编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Spotless代码格式化插件 -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.44.4</version>
+                <configuration>
+                    <!-- Java代码格式化 -->
+                    <java>
+                        <!-- 包含的文件 -->
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+
+                        <!-- 使用Eclipse JDT格式化器 -->
+                        <eclipse>
+                            <version>4.32.0</version>
+                            <file>${project.basedir}/eclipse-formatter.xml</file>
+                        </eclipse>
+
+                        <!-- 移除未使用的导入 -->
+                        <removeUnusedImports/>
+
+                        <!-- 导入顺序 -->
+                        <importOrder>
+                            <order>java,javax,org,com,</order>
+                        </importOrder>
+
+                        <!-- 格式化注解 -->
+                        <formatAnnotations/>
+
+                        <!-- 使用4个空格缩进 -->
+                        <indent>
+                            <spaces>true</spaces>
+                            <spacesPerTab>4</spacesPerTab>
+                        </indent>
+
+                        <!-- 去除行尾空格 -->
+                        <trimTrailingWhitespace/>
+
+                        <!-- 文件末尾添加换行符 -->
+                        <endWithNewline/>
+
+                        <!-- 将单行JavaDoc转换为多行格式 -->
+                        <replaceRegex>
+                            <name>Convert single line JavaDoc to multi-line</name>
+                            <searchRegex>/\*\*\s*([^\n\r*]+?)\s*\*/</searchRegex>
+                            <replacement>/**
+                                * $1
+                                */
+                            </replacement>
+                        </replaceRegex>
+                    </java>
+
+                    <!-- XML文件格式化 -->
+                    <formats>
+                        <format>
+                            <includes>
+                                <include>pom.xml</include>
+                                <include>src/**/*.xml</include>
+                            </includes>
+                            <!-- 使用空格缩进 -->
+                            <indent>
+                                <spaces>true</spaces>
+                                <spacesPerTab>4</spacesPerTab>
+                            </indent>
+                            <!-- 去除行尾空格 -->
+                            <trimTrailingWhitespace/>
+                            <!-- 文件末尾添加换行符 -->
+                            <endWithNewline/>
+                        </format>
+                    </formats>
+                </configuration>
+                <executions>
+                    <!-- 在compile阶段自动格式化 -->
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

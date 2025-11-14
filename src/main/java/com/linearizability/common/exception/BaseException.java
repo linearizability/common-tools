@@ -1,11 +1,10 @@
 package com.linearizability.common.exception;
 
 /**
- * 基础异常类
- * 所有自定义异常应继承此类，提供统一的异常处理规范
+ * 基础异常类 所有自定义异常应继承此类，提供统一的异常处理规范
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class BaseException extends RuntimeException {
 
@@ -88,11 +87,6 @@ public class BaseException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "BaseException{" +
-            "code=" + code +
-            ", message='" + message + '\'' +
-            ", data=" + data +
-            '}';
+        return "BaseException{" + "code=" + code + ", message='" + message + '\'' + ", data=" + data + '}';
     }
 }
-

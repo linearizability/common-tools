@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 基础响应类
- * 所有响应类应继承此类，提供通用的响应字段
+ * 基础响应类 所有响应类应继承此类，提供通用的响应字段
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class BaseResponse implements Serializable {
 
@@ -100,8 +99,8 @@ public class BaseResponse implements Serializable {
     /**
      * 获取扩展参数
      *
-     * @param key 键
-     * @return 值
+     * @param  key 键
+     * @return     值
      */
     public Object getExtParam(String key) {
         return extParams == null ? null : extParams.get(key);
@@ -109,12 +108,7 @@ public class BaseResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "BaseResponse{" +
-            "responseId='" + responseId + '\'' +
-            ", timestamp=" + timestamp +
-            ", responseTime=" + responseTime +
-            ", costTime=" + costTime +
-            ", extParams=" + extParams +
-            '}';
+        return "BaseResponse{" + "responseId='" + responseId + '\'' + ", timestamp=" + timestamp + ", responseTime="
+                + responseTime + ", costTime=" + costTime + ", extParams=" + extParams + '}';
     }
 }

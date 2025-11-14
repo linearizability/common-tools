@@ -1,11 +1,10 @@
 package com.linearizability.common.exception;
 
 /**
- * 参数验证异常类
- * 用于处理参数验证相关的异常
+ * 参数验证异常类 用于处理参数验证相关的异常
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class ValidationException extends BaseException {
 
@@ -36,4 +35,3 @@ public class ValidationException extends BaseException {
         super(code, message, data, cause);
     }
 }
-

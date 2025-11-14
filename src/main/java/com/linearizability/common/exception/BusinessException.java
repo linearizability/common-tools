@@ -1,11 +1,10 @@
 package com.linearizability.common.exception;
 
 /**
- * 业务异常类
- * 用于处理业务逻辑相关的异常
+ * 业务异常类 用于处理业务逻辑相关的异常
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class BusinessException extends BaseException {
 
@@ -36,4 +35,3 @@ public class BusinessException extends BaseException {
         super(code, message, data, cause);
     }
 }
-

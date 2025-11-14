@@ -3,11 +3,10 @@ package com.linearizability.common.dto;
 import com.linearizability.common.base.BaseRequest;
 
 /**
- * 分页请求类
- * 继承自BaseRequest，提供分页相关的通用字段
+ * 分页请求类 继承自BaseRequest，提供分页相关的通用字段
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public class PageRequest extends BaseRequest {
 
@@ -15,15 +14,19 @@ public class PageRequest extends BaseRequest {
      * 默认页码
      */
     public static final int DEFAULT_PAGE_NUM = 1;
+
     /**
      * 默认每页大小
      */
     public static final int DEFAULT_PAGE_SIZE = 10;
+
     /**
      * 最大每页大小
      */
     public static final int MAX_PAGE_SIZE = 1000;
+
     private static final long serialVersionUID = 1L;
+
     /**
      * 页码，从1开始
      */
@@ -156,13 +159,7 @@ public class PageRequest extends BaseRequest {
 
     @Override
     public String toString() {
-        return "PageRequest{" +
-            "pageNum=" + pageNum +
-            ", pageSize=" + pageSize +
-            ", orderBy='" + orderBy + '\'' +
-            ", orderDirection='" + orderDirection + '\'' +
-            ", needTotal=" + needTotal +
-            "} " + super.toString();
+        return "PageRequest{" + "pageNum=" + pageNum + ", pageSize=" + pageSize + ", orderBy='" + orderBy + '\''
+                + ", orderDirection='" + orderDirection + '\'' + ", needTotal=" + needTotal + "} " + super.toString();
     }
 }
-

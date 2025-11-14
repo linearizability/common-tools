@@ -2,17 +2,15 @@ package com.linearizability.common.enums;
 
 /**
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
-
 import com.linearizability.common.base.BaseEnum;
 
 /**
- * 响应状态码枚举示例
- * 展示如何使用BaseEnum接口
+ * 响应状态码枚举示例 展示如何使用BaseEnum接口
  *
  * @author ZhangBoyuan
- * @since 2025-11-07
+ * @since  2025-11-07
  */
 public enum ResponseCodeEnum implements BaseEnum<Integer> {
 
@@ -62,8 +60,8 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
     /**
      * 根据编码查找枚举
      *
-     * @param code 编码
-     * @return 枚举，未找到返回Optional.empty()
+     * @param  code 编码
+     * @return      枚举，未找到返回Optional.empty()
      */
     public static java.util.Optional<ResponseCodeEnum> findByCode(Integer code) {
         return BaseEnum.findByCode(ResponseCodeEnum.class, code);
@@ -72,8 +70,8 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
     /**
      * 根据描述查找枚举
      *
-     * @param desc 描述
-     * @return 枚举，未找到返回Optional.empty()
+     * @param  desc 描述
+     * @return      枚举，未找到返回Optional.empty()
      */
     public static java.util.Optional<ResponseCodeEnum> findByDesc(String desc) {
         return BaseEnum.findByDesc(ResponseCodeEnum.class, desc);
@@ -82,8 +80,8 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
     /**
      * 根据编码查找枚举，未找到时抛出异常
      *
-     * @param code 编码
-     * @return 枚举
+     * @param  code                     编码
+     * @return                          枚举
      * @throws IllegalArgumentException 未找到匹配的枚举时抛出
      */
     public static ResponseCodeEnum findByCodeOrThrow(Integer code) {
@@ -93,8 +91,8 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
     /**
      * 判断编码是否存在
      *
-     * @param code 编码
-     * @return 存在返回true，否则返回false
+     * @param  code 编码
+     * @return      存在返回true，否则返回false
      */
     public static boolean exists(Integer code) {
         return BaseEnum.exists(ResponseCodeEnum.class, code);
@@ -110,5 +108,3 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
         return message;
     }
 }
-
-

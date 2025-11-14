@@ -4,12 +4,11 @@ import com.linearizability.common.base.BaseResponse;
 import com.linearizability.common.exception.BaseException;
 
 /**
- * 统一响应结果类
- * 用于封装所有API的响应结果，提供统一的响应格式
+ * 统一响应结果类 用于封装所有API的响应结果，提供统一的响应格式
  *
- * @param <T> 响应数据类型
- * @author ZhangBoyuan
- * @since 2025-11-07
+ * @param  <T> 响应数据类型
+ * @author     ZhangBoyuan
+ * @since      2025-11-07
  */
 public class Result<T> extends BaseResponse {
 
@@ -74,8 +73,8 @@ public class Result<T> extends BaseResponse {
     /**
      * 成功响应（无数据）
      *
-     * @param <T> 数据类型
-     * @return 响应结果
+     * @param  <T> 数据类型
+     * @return     响应结果
      */
     public static <T> Result<T> success() {
         return success(null);
@@ -84,9 +83,9 @@ public class Result<T> extends BaseResponse {
     /**
      * 成功响应（带数据）
      *
-     * @param data 响应数据
-     * @param <T>  数据类型
-     * @return 响应结果
+     * @param  data 响应数据
+     * @param  <T>  数据类型
+     * @return      响应结果
      */
     public static <T> Result<T> success(T data) {
         return success("操作成功", data);
@@ -95,10 +94,10 @@ public class Result<T> extends BaseResponse {
     /**
      * 成功响应（带消息和数据）
      *
-     * @param message 响应消息
-     * @param data    响应数据
-     * @param <T>     数据类型
-     * @return 响应结果
+     * @param  message 响应消息
+     * @param  data    响应数据
+     * @param  <T>     数据类型
+     * @return         响应结果
      */
     public static <T> Result<T> success(String message, T data) {
         Result<T> result = new Result<>();
@@ -112,9 +111,9 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带消息）
      *
-     * @param message 错误消息
-     * @param <T>     数据类型
-     * @return 响应结果
+     * @param  message 错误消息
+     * @param  <T>     数据类型
+     * @return         响应结果
      */
     public static <T> Result<T> fail(String message) {
         return fail(FAIL_CODE, message);
@@ -123,10 +122,10 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带业务错误码和消息）
      *
-     * @param errorCode 业务错误码
-     * @param message   错误消息
-     * @param <T>       数据类型
-     * @return 响应结果
+     * @param  errorCode 业务错误码
+     * @param  message   错误消息
+     * @param  <T>       数据类型
+     * @return           响应结果
      */
     public static <T> Result<T> fail(String errorCode, String message) {
         return fail(FAIL_CODE, errorCode, message);
@@ -135,10 +134,10 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带HTTP状态码和消息）
      *
-     * @param code    HTTP状态码
-     * @param message 错误消息
-     * @param <T>     数据类型
-     * @return 响应结果
+     * @param  code    HTTP状态码
+     * @param  message 错误消息
+     * @param  <T>     数据类型
+     * @return         响应结果
      */
     public static <T> Result<T> fail(Integer code, String message) {
         return fail(code, null, message, null);
@@ -147,11 +146,11 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带HTTP状态码、业务错误码和消息）
      *
-     * @param code      HTTP状态码
-     * @param errorCode 业务错误码
-     * @param message   错误消息
-     * @param <T>       数据类型
-     * @return 响应结果
+     * @param  code      HTTP状态码
+     * @param  errorCode 业务错误码
+     * @param  message   错误消息
+     * @param  <T>       数据类型
+     * @return           响应结果
      */
     public static <T> Result<T> fail(Integer code, String errorCode, String message) {
         return fail(code, errorCode, message, null);
@@ -160,11 +159,11 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带HTTP状态码、消息和数据）
      *
-     * @param code    HTTP状态码
-     * @param message 错误消息
-     * @param data    响应数据
-     * @param <T>     数据类型
-     * @return 响应结果
+     * @param  code    HTTP状态码
+     * @param  message 错误消息
+     * @param  data    响应数据
+     * @param  <T>     数据类型
+     * @return         响应结果
      */
     public static <T> Result<T> fail(Integer code, String message, T data) {
         return fail(code, null, message, data);
@@ -173,12 +172,12 @@ public class Result<T> extends BaseResponse {
     /**
      * 失败响应（带HTTP状态码、业务错误码、消息和数据）
      *
-     * @param code      HTTP状态码
-     * @param errorCode 业务错误码
-     * @param message   错误消息
-     * @param data      响应数据
-     * @param <T>       数据类型
-     * @return 响应结果
+     * @param  code      HTTP状态码
+     * @param  errorCode 业务错误码
+     * @param  message   错误消息
+     * @param  data      响应数据
+     * @param  <T>       数据类型
+     * @return           响应结果
      */
     public static <T> Result<T> fail(Integer code, String errorCode, String message, T data) {
         Result<T> result = new Result<>();
@@ -193,9 +192,9 @@ public class Result<T> extends BaseResponse {
     /**
      * 从异常创建失败响应
      *
-     * @param exception 异常对象
-     * @param <T>       数据类型
-     * @return 响应结果
+     * @param  exception 异常对象
+     * @param  <T>       数据类型
+     * @return           响应结果
      */
     @SuppressWarnings("unchecked")
     public static <T> Result<T> fail(BaseException exception) {
@@ -205,10 +204,10 @@ public class Result<T> extends BaseResponse {
     /**
      * 从异常创建失败响应（指定HTTP状态码）
      *
-     * @param code      HTTP状态码
-     * @param exception 异常对象
-     * @param <T>       数据类型
-     * @return 响应结果
+     * @param  code      HTTP状态码
+     * @param  exception 异常对象
+     * @param  <T>       数据类型
+     * @return           响应结果
      */
     @SuppressWarnings("unchecked")
     public static <T> Result<T> fail(Integer code, BaseException exception) {
@@ -267,13 +266,7 @@ public class Result<T> extends BaseResponse {
 
     @Override
     public String toString() {
-        return "Result{" +
-            "code=" + code +
-            ", errorCode='" + errorCode + '\'' +
-            ", message='" + message + '\'' +
-            ", data=" + data +
-            ", success=" + success +
-            "} " + super.toString();
+        return "Result{" + "code=" + code + ", errorCode='" + errorCode + '\'' + ", message='" + message + '\''
+                + ", data=" + data + ", success=" + success + "} " + super.toString();
     }
 }
-

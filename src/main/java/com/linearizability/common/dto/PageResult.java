@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页响应结果类
- * 继承自Result，用于封装分页查询的响应结果
+ * 分页响应结果类 继承自Result，用于封装分页查询的响应结果
  *
- * @param <T> 分页数据类型
- * @author ZhangBoyuan
- * @since 2025-11-07
+ * @param  <T> 分页数据类型
+ * @author     ZhangBoyuan
+ * @since      2025-11-07
  */
 public class PageResult<T> extends Result<List<T>> {
 
@@ -33,10 +32,10 @@ public class PageResult<T> extends Result<List<T>> {
     /**
      * 创建成功的分页响应
      *
-     * @param data     数据列表
-     * @param pageInfo 分页信息
-     * @param <T>      数据类型
-     * @return 分页响应结果
+     * @param  data     数据列表
+     * @param  pageInfo 分页信息
+     * @param  <T>      数据类型
+     * @return          分页响应结果
      */
     public static <T> PageResult<T> success(List<T> data, PageInfo pageInfo) {
         PageResult<T> result = new PageResult<>();
@@ -51,11 +50,11 @@ public class PageResult<T> extends Result<List<T>> {
     /**
      * 创建成功的分页响应（根据PageRequest自动计算分页信息）
      *
-     * @param data       数据列表
-     * @param total      总记录数
-     * @param pageRequest 分页请求
-     * @param <T>        数据类型
-     * @return 分页响应结果
+     * @param  data        数据列表
+     * @param  total       总记录数
+     * @param  pageRequest 分页请求
+     * @param  <T>         数据类型
+     * @return             分页响应结果
      */
     public static <T> PageResult<T> success(List<T> data, Long total, PageRequest pageRequest) {
         PageInfo pageInfo = new PageInfo();
@@ -76,9 +75,7 @@ public class PageResult<T> extends Result<List<T>> {
 
     @Override
     public String toString() {
-        return "PageResult{" +
-            "pageInfo=" + pageInfo +
-            "} " + super.toString();
+        return "PageResult{" + "pageInfo=" + pageInfo + "} " + super.toString();
     }
 
     /**
@@ -180,14 +177,8 @@ public class PageResult<T> extends Result<List<T>> {
 
         @Override
         public String toString() {
-            return "PageInfo{" +
-                "pageNum=" + pageNum +
-                ", pageSize=" + pageSize +
-                ", total=" + total +
-                ", totalPages=" + totalPages +
-                ", hasPrevious=" + hasPrevious +
-                ", hasNext=" + hasNext +
-                '}';
+            return "PageInfo{" + "pageNum=" + pageNum + ", pageSize=" + pageSize + ", total=" + total + ", totalPages="
+                    + totalPages + ", hasPrevious=" + hasPrevious + ", hasNext=" + hasNext + '}';
         }
     }
 }

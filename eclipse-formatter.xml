@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<profiles version="23">
+    <profile kind="CodeFormatterProfile" name="Custom Java Style" version="23">
+        <!-- 基础缩进设置 -->
+        <setting id="org.eclipse.jdt.core.formatter.tabulation.char" value="space"/>
+        <setting id="org.eclipse.jdt.core.formatter.tabulation.size" value="4"/>
+        <setting id="org.eclipse.jdt.core.formatter.indentation.size" value="4"/>
+        
+        <!-- JavaDoc 格式化设置 -->
+        <setting id="org.eclipse.jdt.core.formatter.comment.format_javadoc_comments" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.format_line_comments" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.format_block_comments" value="true"/>
+        
+        <!-- JavaDoc 缩进设置 -->
+        <setting id="org.eclipse.jdt.core.formatter.comment.indent_parameter_description" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.indent_root_tags" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.align_tags_names_descriptions" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.align_tags_descriptions_grouped" value="false"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.preserve_white_space_between_code_and_line_comments" value="false"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.new_lines_at_javadoc_boundaries" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.javadoc_do_not_separate_block_tags" value="false"/>
+        
+        <!-- JavaDoc 行长度 -->
+        <setting id="org.eclipse.jdt.core.formatter.comment.line_length" value="120"/>
+        
+        <!-- JavaDoc 空行设置 -->
+        <setting id="org.eclipse.jdt.core.formatter.comment.insert_new_line_before_root_tags" value="insert"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.insert_new_line_for_parameter" value="do not insert"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.format_header" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.clear_blank_lines_in_javadoc_comment" value="false"/>
+        
+        <!-- 其他基础设置 -->
+        <setting id="org.eclipse.jdt.core.formatter.line_separator" value="&#10;"/>
+        <setting id="org.eclipse.jdt.core.formatter.lineSplit" value="120"/>
+    </profile>
+</profiles>
