@@ -5,7 +5,7 @@
 ## 📋 项目信息
 
 - **项目名称**: common-tools
-- **GroupId**: pers.boyuan
+- **GroupId**: com.linearizability
 - **ArtifactId**: common-tools
 - **版本**: 1.0-SNAPSHOT
 - **Java 版本**: JDK 25
@@ -16,7 +16,7 @@
 
 ```
 common-tools/
-├── src/main/java/pers/boyuan/common/
+├── src/main/java/com/linearizability/common/
 │   ├── base/                    # 基础规范定义
 │   │   ├── BaseEnum.java        # 枚举规范接口
 │   │   ├── BaseRequest.java     # 基础请求类
@@ -172,7 +172,7 @@ common-tools/
 ```xml
 
 <dependency>
-    <groupId>com.boyuan</groupId>
+    <groupId>com.linearizability</groupId>
     <artifactId>common-tools</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
@@ -567,10 +567,6 @@ LocalDate monthEnd = DateUtil.getMonthEnd(LocalDate.now());
 - ✅ 完成响应状态码枚举示例
 - ✅ 完成JSON工具类（JsonUtil）- 支持对象转JSON、JSON转对象、格式化、验证、JSONPath等功能
 - ✅ 完成日期时间工具类（DateUtil）- 支持格式化、解析、计算、比较、时间戳转换、时区转换、工作日计算等功能
-
-## 🤝 贡献指南
-
-欢迎提交 Issue 和 Pull Request！
 
 ## 📄 许可证
 

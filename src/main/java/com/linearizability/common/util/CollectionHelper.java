@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * 集合映射工具类 - 提供集合元素字段提取、转换、分组等功能
+ * 集合助手 - 提供集合元素字段提取、转换、分组、排序等功能
  *
  * @author ZhangBoyuan
  * @since  2025-11-06
  */
-public class CollectionMapperUtil {
+public class CollectionHelper {
 
     /**
      * 从列表中提取第一个指定字段值不为空的元素，返回该字段值
@@ -314,4 +314,20 @@ public class CollectionMapperUtil {
         return list.stream().filter(Objects::nonNull).map(fieldExtractor)
                 .filter(fieldValue -> Objects.equals(fieldValue, value)).count();
     }
+
+    /**
+     * 按指定字段降序排序，null值排在最后
+     *
+     * @param list           列表
+     * @param fieldExtractor 字段提取器
+     * @param <T>            列表元素类型
+     * @param <R>            字段类型（必须实现Comparable接口）
+     */
+    public static <T, R extends Comparable<R>> void sortByFieldDesc(List<T> list, Function<T, R> fieldExtractor) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        list.sort(Comparator.comparing(fieldExtractor, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+    }
+
 }
