@@ -1,9 +1,5 @@
 package com.linearizability.common.enums;
 
-/**
- * @author ZhangBoyuan
- * @since  2025-11-07
- */
 import com.linearizability.common.base.BaseEnum;
 
 /**
