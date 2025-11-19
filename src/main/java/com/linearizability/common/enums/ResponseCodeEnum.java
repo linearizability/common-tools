@@ -12,6 +12,7 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
 
     /**
      * 成功
+     *
      */
     SUCCESS(200, "操作成功"),
 
