@@ -10,6 +10,8 @@ import com.linearizability.common.base.BaseRequest;
  */
 public class PageRequest extends BaseRequest {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 默认页码
      */
@@ -24,8 +26,6 @@ public class PageRequest extends BaseRequest {
      * 最大每页大小
      */
     public static final int MAX_PAGE_SIZE = 1000;
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * 页码，从1开始

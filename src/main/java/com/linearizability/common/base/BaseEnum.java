@@ -128,4 +128,5 @@ public interface BaseEnum<V> {
      * @return 枚举描述
      */
     String getDesc();
+
 }

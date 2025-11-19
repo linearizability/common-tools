@@ -2,6 +2,8 @@ package com.linearizability.common.base;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 基础响应类 所有响应类应继承此类，提供通用的响应字段
@@ -36,7 +38,7 @@ public class BaseResponse implements Serializable {
     /**
      * 扩展字段，用于存储额外的响应信息
      */
-    private java.util.Map<String, Object> extParams;
+    private Map<String, Object> extParams;
 
     public BaseResponse() {
         this.timestamp = System.currentTimeMillis();
@@ -91,7 +93,7 @@ public class BaseResponse implements Serializable {
      */
     public void addExtParam(String key, Object value) {
         if (this.extParams == null) {
-            this.extParams = new java.util.HashMap<>();
+            this.extParams = new HashMap<>();
         }
         this.extParams.put(key, value);
     }

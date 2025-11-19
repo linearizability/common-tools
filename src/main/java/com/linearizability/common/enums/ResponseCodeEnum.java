@@ -57,47 +57,6 @@ public enum ResponseCodeEnum implements BaseEnum<Integer> {
         this.message = message;
     }
 
-    /**
-     * 根据编码查找枚举
-     *
-     * @param  code 编码
-     * @return      枚举，未找到返回Optional.empty()
-     */
-    public static java.util.Optional<ResponseCodeEnum> findByCode(Integer code) {
-        return BaseEnum.findByCode(ResponseCodeEnum.class, code);
-    }
-
-    /**
-     * 根据描述查找枚举
-     *
-     * @param  desc 描述
-     * @return      枚举，未找到返回Optional.empty()
-     */
-    public static java.util.Optional<ResponseCodeEnum> findByDesc(String desc) {
-        return BaseEnum.findByDesc(ResponseCodeEnum.class, desc);
-    }
-
-    /**
-     * 根据编码查找枚举，未找到时抛出异常
-     *
-     * @param  code                     编码
-     * @return                          枚举
-     * @throws IllegalArgumentException 未找到匹配的枚举时抛出
-     */
-    public static ResponseCodeEnum findByCodeOrThrow(Integer code) {
-        return BaseEnum.findByCodeOrThrow(ResponseCodeEnum.class, code);
-    }
-
-    /**
-     * 判断编码是否存在
-     *
-     * @param  code 编码
-     * @return      存在返回true，否则返回false
-     */
-    public static boolean exists(Integer code) {
-        return BaseEnum.exists(ResponseCodeEnum.class, code);
-    }
-
     @Override
     public Integer getCode() {
         return code;

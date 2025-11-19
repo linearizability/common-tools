@@ -2,6 +2,8 @@ package com.linearizability.common.base;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 基础请求类 所有请求类应继承此类，提供通用的请求字段
@@ -51,7 +53,7 @@ public class BaseRequest implements Serializable {
     /**
      * 扩展字段，用于存储额外的请求参数
      */
-    private java.util.Map<String, Object> extParams;
+    private Map<String, Object> extParams;
 
     public BaseRequest() {
         this.timestamp = System.currentTimeMillis();
@@ -114,11 +116,11 @@ public class BaseRequest implements Serializable {
         this.startTime = startTime;
     }
 
-    public java.util.Map<String, Object> getExtParams() {
+    public Map<String, Object> getExtParams() {
         return extParams;
     }
 
-    public void setExtParams(java.util.Map<String, Object> extParams) {
+    public void setExtParams(Map<String, Object> extParams) {
         this.extParams = extParams;
     }
 
@@ -130,7 +132,7 @@ public class BaseRequest implements Serializable {
      */
     public void addExtParam(String key, Object value) {
         if (this.extParams == null) {
-            this.extParams = new java.util.HashMap<>();
+            this.extParams = new HashMap<>();
         }
         this.extParams.put(key, value);
     }
