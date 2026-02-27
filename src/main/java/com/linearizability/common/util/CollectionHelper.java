@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 集合助手 - 提供集合元素字段提取、转换、分组、排序等功能
@@ -328,6 +329,69 @@ public class CollectionHelper {
             return;
         }
         list.sort(Comparator.comparing(fieldExtractor, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+    }
+
+    /**
+     * 从列表中提取多个字段值并合并到一个集合中 支持提取相同类型的多个字段值
+     *
+     * @param  list            列表
+     * @param  fieldExtractors 可变参数的字段提取器数组
+     * @param  <T>             列表元素类型
+     * @param  <R>             字段类型
+     * @return                 包含所有字段值的列表
+     */
+    @SafeVarargs
+    public static <T, R> List<R> extractMultipleFields(List<T> list, Function<T, R>... fieldExtractors) {
+        if (list == null || list.isEmpty() || fieldExtractors == null || fieldExtractors.length == 0) {
+            return Collections.emptyList();
+        }
+
+        return list.stream().filter(Objects::nonNull)
+                .flatMap(element -> Stream.of(fieldExtractors).filter(Objects::nonNull)
+                        .map(extractor -> extractor.apply(element)).filter(Objects::nonNull))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 从列表中提取多个字段值并合并到一个去重集合中 支持提取相同类型的多个字段值
+     *
+     * @param  list            列表
+     * @param  fieldExtractors 可变参数的字段提取器数组
+     * @param  <T>             列表元素类型
+     * @param  <R>             字段类型
+     * @return                 包含所有去重字段值的列表
+     */
+    @SafeVarargs
+    public static <T, R> List<R> extractMultipleFieldsDistinct(List<T> list, Function<T, R>... fieldExtractors) {
+        if (list == null || list.isEmpty() || fieldExtractors == null || fieldExtractors.length == 0) {
+            return Collections.emptyList();
+        }
+
+        return list.stream().filter(Objects::nonNull)
+                .flatMap(element -> Stream.of(fieldExtractors).filter(Objects::nonNull)
+                        .map(extractor -> extractor.apply(element)).filter(Objects::nonNull))
+                .distinct().collect(Collectors.toList());
+    }
+
+    /**
+     * 从列表中提取多个字段值并转换为Set 自动去重，支持提取相同类型的多个字段值
+     *
+     * @param  list            列表
+     * @param  fieldExtractors 可变参数的字段提取器数组
+     * @param  <T>             列表元素类型
+     * @param  <R>             字段类型
+     * @return                 包含所有字段值的Set
+     */
+    @SafeVarargs
+    public static <T, R> Set<R> extractMultipleFieldsToSet(List<T> list, Function<T, R>... fieldExtractors) {
+        if (list == null || list.isEmpty() || fieldExtractors == null || fieldExtractors.length == 0) {
+            return Collections.emptySet();
+        }
+
+        return list.stream().filter(Objects::nonNull)
+                .flatMap(element -> Stream.of(fieldExtractors).filter(Objects::nonNull)
+                        .map(extractor -> extractor.apply(element)).filter(Objects::nonNull))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
 }
