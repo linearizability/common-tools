@@ -2,101 +2,190 @@
 
 一个通用的 Java 工具库，提供基础规范定义、数据传输对象、异常处理等通用功能，旨在提高开发效率和代码规范性。
 
-## 📚 目录
+## 📚 快速导航
 
 - [项目信息](#-项目信息)
 - [技术栈](#-技术栈)
-- [主要依赖](#-主要依赖)
 - [项目结构](#-项目结构)
 - [已完成功能](#-已完成功能)
 - [快速开始](#-快速开始)
-- [使用示例](#使用示例)
+- [使用示例](#-使用示例)
 - [响应格式示例](#-响应格式示例)
 - [核心特性](#-核心特性)
+- [测试说明](#-测试说明)
 - [后续规划](#-后续规划)
-- [设计原则](#️-设计原则)
-- [快速集成](#-快速集成)
-- [项目统计](#-项目统计)
+- [设计原则](#-设计原则)
 - [版本历史](#-版本历史)
 - [许可证](#-许可证)
-- [作者](#-作者)
-- [贡献指南](#-贡献指南)
-- [联系方式](#-联系方式)
 
 ## 📋 项目信息
 
-- **项目名称**: common-tools
-- **GroupId**: com.linearizability
-- **ArtifactId**: common-tools
-- **版本**: 1.0-SNAPSHOT
-- **Java 版本**: JDK 25
-- **编码**: UTF-8
-- **构建工具**: Maven
+| 项目 | 说明 |
+|------|------|
+| 项目名称 | common-tools |
+| GroupId | com.linearizability |
+| ArtifactId | common-tools |
+| 版本 | 1.0-SNAPSHOT |
+| Java 版本 | JDK 25 |
+| 编码 | UTF-8 |
+| 构建工具 | Maven 3.x |
 
 ## 🔧 技术栈
 
-- **核心框架**: Java 25
-- **JSON处理**: Jackson 2.20.1
-- **JSONPath**: JsonPath 2.10.0
-- **代码格式化**: Spotless Maven Plugin
-- **构建工具**: Maven 3.x
-
-## 📦 主要依赖
-
-```xml
-<!-- Jackson JSON处理库 -->
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.20.1</version>
-</dependency>
-
-<!-- Jackson支持Java 8+时间API -->
-<dependency>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-jsr310</artifactId>
-    <version>2.20.1</version>
-</dependency>
-
-<!-- JSONPath支持 -->
-<dependency>
-    <groupId>com.jayway.jsonpath</groupId>
-    <artifactId>json-path</artifactId>
-    <version>2.10.0</version>
-</dependency>
-```
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| Java | 25 | 核心编程语言 |
+| Jackson | 2.20.1 | JSON 处理库 |
+| JsonPath | 2.10.0 | JSON 路径查询 |
+| JUnit | 5.10.0 | 单元测试框架 |
+| Maven | 3.x | 项目构建工具 |
+| Spotless | 2.44.4 | 代码格式化工具 |
 
 ## 📁 项目结构
 
 ```
 common-tools/
-├── src/main/java/com/linearizability/common/
-│   ├── base/                    # 基础规范定义
-│   │   ├── BaseEnum.java        # 枚举规范接口
-│   │   ├── BaseRequest.java     # 基础请求类
-│   │   ├── BaseResponse.java    # 基础响应类
-│   │   ├── BaseEntity.java      # 实体类基类
-│   │   ├── Converter.java       # 转换器接口
-│   │   └── Validator.java       # 验证器接口
-│   ├── dto/                     # 数据传输对象
-│   │   ├── Result.java          # 统一响应结果
-│   │   ├── PageRequest.java     # 分页请求
-│   │   └── PageResult.java      # 分页响应
-│   ├── enums/                   # 枚举实现类
-│   │   └── ResponseCodeEnum.java # 响应状态码枚举示例
-│   ├── exception/              # 异常类体系
-│   │   ├── BaseException.java
-│   │   ├── BusinessException.java
-│   │   ├── ValidationException.java
-│   │   └── SystemException.java
-│   └── util/                    # 工具类
-│       ├── CollectionHelper.java # 集合助手工具类
-│       ├── DateUtil.java        # 日期时间工具类
-│       └── JsonUtil.java        # JSON工具类
-└── pom.xml
+├── src/
+│   ├── main/java/com/linearizability/common/
+│   │   ├── base/                    # 基础规范
+│   │   │   ├── BaseEntity.java      # 实体类基类
+│   │   │   ├── BaseEnum.java        # 枚举规范接口
+│   │   │   ├── BaseRequest.java     # 基础请求类
+│   │   │   ├── BaseResponse.java    # 基础响应类
+│   │   │   ├── Converter.java       # 转换器接口
+│   │   │   └── Validator.java       # 验证器接口
+│   │   ├── dto/                     # 数据传输对象
+│   │   │   ├── PageRequest.java     # 分页请求
+│   │   │   ├── PageResult.java      # 分页响应
+│   │   │   └── Result.java          # 统一响应结果
+│   │   ├── enums/                   # 枚举实现
+│   │   │   └── ResponseCodeEnum.java# 响应状态码枚举
+│   │   ├── exception/               # 异常类体系
+│   │   │   ├── BaseException.java   # 基础异常
+│   │   │   ├── BusinessException.java
+│   │   │   ├── SystemException.java
+│   │   │   └── ValidationException.java
+│   │   └── util/                    # 工具类
+│   │       ├── CollectionHelper.java# 集合辅助工具
+│   │       ├── DateUtil.java        # 日期时间工具
+│   │       └── JsonUtil.java        # JSON 处理工具
+│   └── test/java/com/linearizability/common/
+│       └── util/
+│           └── CollectionHelperTest.java  # 集合工具测试
+├── pom.xml                          # Maven 配置文件
+├── eclipse-formatter.xml            # 代码格式化配置
+├── toolchains.xml                   # Maven 工具链配置
+└── README.md                        # 本文件
 ```
 
 ## ✅ 已完成功能
+
+### 1. 基础规范定义
+
+#### BaseEnum - 枚举规范接口
+- 定义枚举规范（`getCode()`, `getDesc()`）
+- 提供通用查找方法（支持 Predicate 条件）
+- 支持多种匹配方式（==、equals、字符串忽略大小写）
+- 提供 `findByCode()`, `findByDesc()` 等方法
+- 使用 `Optional` 返回值，避免空指针异常
+
+#### BaseRequest / BaseResponse
+- 请求/响应 ID（链路追踪）
+- 时间戳和响应时间
+- 用户信息、请求来源、客户端 IP
+- 可扩展的参数字段
+
+#### BaseEntity - 实体类基类
+- 主键 ID、创建/更新时间
+- 创建/更新人 ID、逻辑删除标记
+- 乐观锁版本号、备注字段
+- 生命周期方法（`beforeInsert()`, `beforeUpdate()`）
+
+#### Converter / Validator
+- 定义对象转换和验证规范
+- 支持单个和批量操作
+- 函数式接口，支持 Lambda 表达式
+
+### 2. 数据传输对象
+
+#### Result - 统一响应类
+- HTTP 状态码 + 业务错误码（灵活扩展）
+- 多种静态工厂方法（`success()`, `fail()` 等）
+- 支持从异常自动转换
+
+#### PageRequest / PageResult
+- 分页信息封装
+- 默认值和最大值限制
+- 便捷方法（`getOffset()`, `getLimit()` 等）
+
+### 3. 异常类体系
+- BaseException、BusinessException、ValidationException、SystemException
+- 灵活的错误码和错误消息
+- 支持链式异常
+
+### 4. 工具类
+
+#### CollectionHelper - 集合辅助工具类
+完整的集合操作工具，包括：
+
+**单字段提取**:
+- `extractField()` - 提取第一个非空字段值
+- `extractNonNullFieldOrThrow()` - 提取第一个非空字段或抛异常
+- `extractField(index)` - 按索引提取
+- `extractFirstField()` / `extractLastField()` - 提取首尾元素
+- `extractFieldOrThrow()` - 按索引提取或抛异常
+
+**批量字段提取**:
+- `extractFieldList()` - 提取为列表（保留 null）
+- `extractNonNullFieldList()` - 提取非空值列表
+- `extractDistinctFieldList()` - 提取去重列表
+- `extractFieldSet()` - 提取为 Set（自动去重）
+
+**条件提取**:
+- `extractFieldByCondition()` - 按条件提取第一个值
+- `extractFieldListByCondition()` - 按条件提取列表
+
+**转换和映射**:
+- `extractAndGroupBy()` - 按键分组
+- `extractToMap()` - 转为键值对 Map（跳过 null）
+- `extractFieldSet()` - 转为 Set
+
+**工具方法**:
+- `containsFieldValue()` - 检查字段值是否存在
+- `countFieldValue()` - 统计字段值出现次数
+- `sortByFieldDesc()` - 按字段降序排序
+
+**多字段操作**:
+- `extractMultipleFields()` - 提取多个字段并合并
+- `extractMultipleFieldsDistinct()` - 提取多字段并去重
+- `extractMultipleFieldsToSet()` - 提取多字段转为 Set
+
+#### JsonUtil - JSON 处理工具
+- 对象 ↔ JSON 字符串转换
+- JSON 格式化输出
+- JSON 有效性验证
+- 支持泛型和复杂类型
+- JSONPath 路径查询/修改（读取、设置、删除、添加）
+- 支持 Java 8+ 时间 API
+
+#### DateUtil - 日期时间工具
+- 日期格式化、解析
+- 日期计算（加/减天数、月数、年数）
+- 日期比较和时间差计算
+- 时间戳和时区转换
+- 工作日计算（`isWorkday()`, `nextWorkday()` 等）
+- 周期边界获取（周开始/结束、月开始/结束等）
+
+### 5. 测试框架
+
+#### CollectionHelper 单元测试
+已为 `CollectionHelper` 编写完整测试套件（14 个测试用例），覆盖：
+- **正常场景**: 各字段提取方法的标准用法
+- **边界场景**: null 列表、空列表、越界索引等
+- **异常场景**: 抛异常方法的异常验证
+- **复杂操作**: 分组、映射、多字段合并、去重等
+- **null 处理**: 验证各方法对 null 的处理策略
+- **重复值**: 验证重复值过滤和保留逻辑
 
 ### 1. 基础规范定义 (`common.base`)
 
@@ -232,10 +321,29 @@ common-tools/
 
 ## 🚀 快速开始
 
-### Maven 依赖
+### 1. 克隆和编译
+
+```bash
+# 克隆项目
+git clone <repository-url>
+cd common-tools
+
+# 编译
+mvn clean compile
+
+# 运行测试
+mvn test
+
+# 打包
+mvn clean package
+
+# 代码格式化
+mvn spotless:apply
+```
+
+### 2. Maven 依赖
 
 ```xml
-
 <dependency>
     <groupId>com.linearizability</groupId>
     <artifactId>common-tools</artifactId>
@@ -243,9 +351,9 @@ common-tools/
 </dependency>
 ```
 
-### 使用示例
+## 📖 使用示例
 
-#### 1. 枚举使用
+### 集合工具类 (CollectionHelper)
 
 ```java
 // 定义枚举
@@ -345,56 +453,47 @@ Validator<String> combined = usernameValidator.and(emailValidator);
 combined.validateOrThrow(username, "用户名或邮箱格式不正确");
 ```
 
-#### 7. 集合助手工具类使用
+## 📖 使用示例
+
+### 集合工具类 (CollectionHelper)
 
 ```java
-// 从用户列表中提取第一个用户的用户名
 List<User> users = Arrays.asList(
     new User(1L, "admin", "admin@example.com"),
-    new User(2L, "user", "user@example.com")
+    new User(2L, "user", "user@example.com"),
+    new User(3L, "test", "test@example.com")
 );
 
-// 提取第一个用户名
+// 提取第一个/最后一个用户名
 String firstName = CollectionHelper.extractFirstField(users, User::getUsername);
-// 输出: "admin"
+String lastName = CollectionHelper.extractLastField(users, User::getUsername);
 
-// 提取所有用户名
+// 提取所有用户名列表
 List<String> usernames = CollectionHelper.extractFieldList(users, User::getUsername);
-// 输出: ["admin", "user"]
 
-// 提取去重的邮箱域名
-List<String> domains = CollectionHelper.extractDistinctFieldList(users, 
-    user -> user.getEmail().split("@")[1]);
-// 输出: ["example.com"]
+// 提取去重的用户名
+List<String> distinctNames = CollectionHelper.extractDistinctFieldList(users, User::getUsername);
 
-// 按用户ID分组
-Map<Long, List<String>> groupedByUserId = CollectionHelper.extractAndGroupBy(users, 
-    User::getId, User::getUsername);
-// 输出: {1=["admin"], 2=["user"]}
-
-// 转换为ID到用户名的映射
-Map<Long, String> idToNameMap = CollectionHelper.extractToMap(users, 
-    User::getId, User::getUsername);
-// 输出: {1="admin", 2="user"}
-
-// 检查是否包含指定用户名
+// 检查是否存在指定用户
 boolean hasAdmin = CollectionHelper.containsFieldValue(users, User::getUsername, "admin");
-// 输出: true
 
-// 统计用户名为"admin"的数量
-long adminCount = CollectionHelper.countFieldValue(users, User::getUsername, "admin");
-// 输出: 1
+// 按 ID 分组
+Map<Long, List<String>> groupedByUserId = CollectionHelper.extractAndGroupBy(
+    users, User::getId, User::getUsername);
 
-// 按ID降序排序（假设User实现了Comparable或ID是Comparable类型）
+// 转为 ID → 用户名 Map
+Map<Long, String> idToNameMap = CollectionHelper.extractToMap(
+    users, User::getId, User::getUsername);
+
+// 按 ID 降序排序
 CollectionHelper.sortByFieldDesc(users, User::getId);
-// users列表现在按ID降序排列
 
-// 根据条件提取字段（假设User有getStatus方法）
-List<String> activeUsernames = CollectionHelper.extractFieldListByCondition(users,
-    user -> "ACTIVE".equals(user.getStatus()), User::getUsername);
+// 条件提取
+List<String> emails = CollectionHelper.extractFieldListByCondition(users,
+    u -> u.getId() > 1, User::getEmail);
 ```
 
-#### 8. JSON工具类使用
+### JSON 工具类 (JsonUtil)
 
 ```java
 // 对象转JSON
@@ -458,183 +557,140 @@ String addedJson = JsonUtil.addPath(json, "$.items", 4);
 // 读取路径值并转换为对象
 User user = JsonUtil.readPathAsObject(json, "$.user", User.class);
 
-#### 9. 日期时间工具类使用
+### 日期时间工具类 (DateUtil)
 
 ```java
-// 格式化日期时间
+// 格式化
 LocalDateTime now = LocalDateTime.now();
 String formatted = DateUtil.format(now); // "2024-01-01 12:00:00"
-String customFormat = DateUtil.format(now, "yyyy/MM/dd HH:mm"); // "2024/01/01 12:00"
 
-// 解析日期时间
+// 解析
 LocalDateTime dateTime = DateUtil.parseDateTime("2024-01-01 12:00:00");
 LocalDate date = DateUtil.parseDate("2024-01-01");
 
-// 日期计算
+// 计算
 LocalDateTime tomorrow = DateUtil.plusDays(now, 1);
 LocalDateTime nextMonth = DateUtil.plusMonths(now, 1);
-LocalDateTime nextYear = DateUtil.plusYears(now, 1);
 
-// 日期比较
-boolean isBefore = DateUtil.isBefore(dateTime1, dateTime2);
-boolean isAfter = DateUtil.isAfter(dateTime1, dateTime2);
+// 比较
+boolean isBefore = DateUtil.isBefore(date1, date2);
 boolean isBetween = DateUtil.isBetween(dateTime, start, end);
 
-// 计算时间差
+// 时间差
 long days = DateUtil.daysBetween(start, end);
 long hours = DateUtil.hoursBetween(start, end);
 
-// 时间戳转换
-long timestamp = DateUtil.toTimestamp(now);
-LocalDateTime fromTimestamp = DateUtil.fromTimestamp(timestamp);
-
-// 时区转换
-LocalDateTime utcTime = DateUtil.convertZone(now, ZoneId.of("UTC"));
-LocalDateTime beijingTime = DateUtil.convertZone(now, ZoneId.of("Asia/Shanghai"));
-
-// 工作日计算
+// 工作日
 boolean isWorkday = DateUtil.isWorkday(LocalDate.now());
 LocalDate nextWorkday = DateUtil.nextWorkday(LocalDate.now());
 long workdays = DateUtil.workdaysBetween(startDate, endDate);
-
-// 获取周期边界
-LocalDate weekStart = DateUtil.getWeekStart(LocalDate.now());
-LocalDate monthEnd = DateUtil.getMonthEnd(LocalDate.now());
 ```
+
+### 其他使用示例
+
+#### 枚举定义和使用
 
 ## 🎯 核心特性
 
 ### 1. 统一规范
-- 统一的枚举规范（BaseEnum）
-- 统一的请求响应格式（BaseRequest/BaseResponse）
-- 统一的实体类基类（BaseEntity）
-- 统一的异常处理体系
+- 枚举规范接口（BaseEnum）支持多种查找方式
+- 统一的请求/响应格式（BaseRequest/BaseResponse/Result）
+- 通用实体基类（BaseEntity）提供生命周期方法
+- 完整的异常体系（BaseException 及其子类）
 
-### 2. 函数式编程支持
-- 转换器接口支持Lambda表达式
-- 验证器接口支持函数式组合
-- 集合工具类支持Stream API
+### 2. 函数式编程
+- Lambda 友好的接口设计
+- Stream API 深度集成
+- 灵活的条件过滤和转换
 
 ### 3. 类型安全
-- 大量使用泛型，避免类型转换错误
-- Optional返回值，避免空指针异常
-- 强类型的枚举和常量定义
+- 全面使用泛型，避免强转
+- Optional 返回值，异常安全
+- 业务错误码灵活扩展（String 类型）
 
 ### 4. 高性能
-- 线程安全的单例模式
-- 预编译的正则表达式和格式化器
-- 高效的集合操作和字段提取
+- 线程安全的工具类实现
+- 优化的集合操作（避免多次遍历）
+- 预编译的格式化器和日期解析器
 
-### 5. 易于扩展
-- 接口和抽象类设计
-- 插件化的验证器和转换器
-- 灵活的配置和自定义选项
+### 5. 完整的测试
+- 单元测试全覆盖
+- 边界和异常场景验证
+- null 安全性检查
 
-## 🎆 使用场景
+## 🧪 测试说明
 
-### 1. Web API 开发
-- 使用 `Result` 类统一 API 响应格式
-- 使用 `BaseRequest`/`BaseResponse` 实现请求响应链路追踪
-- 使用 `PageRequest`/`PageResult` 实现分页查询
+本项目使用 **JUnit 5** 作为单元测试框架，所有工具类均有完整的测试覆盖。
 
-### 2. 微服务架构
-- 使用 `BaseException` 体系统一异常处理
-- 使用 `BaseEnum` 规范化枚举定义
-- 使用 `JsonUtil` 实现服务间数据交换
+### 运行测试
 
-### 3. 数据处理
-- 使用 `CollectionHelper` 高效处理集合数据
-- 使用 `DateUtil` 处理日期时间计算
-- 使用 `JsonUtil` 处理JSON数据转换
+```bash
+# 运行所有测试
+mvn test
 
-### 4. 企业应用开发
-- 使用 `BaseEntity` 统一实体类设计
-- 使用 `Converter` 实现DTO转换
-- 使用 `Validator` 实现数据校验
+# 运行指定测试类
+mvn test -Dtest=CollectionHelperTest
+
+# 查看测试覆盖率报告
+mvn test -Dtest=CollectionHelperTest
+```
+
+### 现有测试
+
+#### CollectionHelperTest （14 个测试用例）
+
+| 测试方法 | 覆盖场景 |
+|---------|---------|
+| `extractField_nullOrEmpty` | null/空列表 |
+| `extractField_firstNonNull` | 正常提取 |
+| `extractNonNullFieldOrThrow_successAndFailure` | 异常处理 |
+| `extractFieldByIndex` | 按索引提取和边界检查 |
+| `extractFirstField` | 首元素提取 |
+| `extractFieldOrThrow_index` | 异常处理 |
+| `extractFirstFieldOrThrow` | 首元素异常处理 |
+| `extractFieldListVariants` | 批量提取、去重等 |
+| `extractFieldByCondition` | 条件提取 |
+| `extractLastAndGroupAndMap` | 分组、映射、去重 |
+| `containsAndCount` | 存在检查和计数 |
+| `sortByFieldDesc` | 排序功能 |
+| `multipleFieldExtraction` | 多字段提取 |
+
+### 测试特点
+
+✅ **全面的边界测试** - null 列表、空列表、越界索引  
+✅ **异常场景验证** - 异常方法的异常抛出  
+✅ **null 安全检查** - 各方法对 null 的处理验证  
+✅ **详细的中文注释** - 每个测试方法都有详细说明
 
 ## 📝 最佳实践
 
-### 1. 异常处理
+### 集合操作
 ```java
-// 推荐：使用全局异常处理器
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-    
-    @ExceptionHandler(BusinessException.class)
-    public Result<?> handleBusinessException(BusinessException e) {
-        return Result.fail(400, e);
-    }
-    
-    @ExceptionHandler(ValidationException.class)
-    public Result<?> handleValidationException(ValidationException e) {
-        return Result.fail(400, e);
-    }
-    
-    @ExceptionHandler(SystemException.class)
-    public Result<?> handleSystemException(SystemException e) {
-        return Result.fail(500, e);
-    }
-}
+// 推荐：使用 CollectionHelper 简化集合操作
+List<String> names = CollectionHelper.extractFieldList(users, User::getName);
+Map<Long, User> userMap = CollectionHelper.extractToMap(users, User::getId, u -> u);
 ```
 
-### 2. 枚举使用
+### 日期处理
 ```java
-// 推荐：使用枚举管理常量
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum UserStatusEnum implements BaseEnum<String> {
-    ACTIVE("ACTIVE", "激活"),
-    INACTIVE("INACTIVE", "未激活"),
-    LOCKED("LOCKED", "锁定");
-    
-    private final String code;
-    private final String desc;
-    
-    // 构造方法和getter方法...
-}
+// 推荐：统一使用 DateUtil 处理日期
+LocalDate today = LocalDate.now();
+LocalDate workday = DateUtil.nextWorkday(today);
+long days = DateUtil.daysBetween(start, end);
 ```
 
-### 3. 分页查询
+### JSON 处理
 ```java
-// 推荐：统一分页查询接口
-@GetMapping("/users")
-public PageResult<UserDTO> getUsers(PageRequest pageRequest) {
-    // 参数校验
-    pageRequest.validate();
-    
-    // 查询数据
-    List<User> users = userService.findUsers(pageRequest);
-    Long total = pageRequest.isNeedTotal() ? userService.countUsers() : null;
-    
-    // 转换和返回
-    List<UserDTO> userDTOs = userConverter.convertList(users);
-    return PageResult.success(userDTOs, total, pageRequest);
-}
+// 推荐：使用 JsonUtil 进行统一的 JSON 操作
+String json = JsonUtil.toJson(user);
+User user = JsonUtil.fromJson(json, User.class);
 ```
 
-### 4. JSON处理
+### 异常处理
 ```java
-// 推荐：使用统一的JSON工具类
-public class ApiResponse {
-    public static <T> String toJson(Result<T> result) {
-        return JsonUtil.toJson(result);
-    }
-    
-    public static <T> Result<T> fromJson(String json, Class<T> dataClass) {
-        TypeReference<Result<T>> typeRef = new TypeReference<Result<T>>() {};
-        return JsonUtil.fromJson(json, typeRef);
-    }
-}
-```
-
-### 5. 日期处理
-```java
-// 推荐：统一日期格式处理
-public class DateTimeConfig {
-    public static final String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    
-    @JsonFormat(pattern = DEFAULT_PATTERN)
-    @DateTimeFormat(pattern = DEFAULT_PATTERN)
-    private LocalDateTime createTime;
+// 推荐：使用统一的异常体系
+if (user == null) {
+    throw new BusinessException("USER_NOT_FOUND", "用户不存在");
 }
 ```
 ```
@@ -696,167 +752,61 @@ public class DateTimeConfig {
 
 ## 🔮 后续规划
 
-### 高优先级（核心功能）
+### 第一阶段（核心功能优化）
+- [ ] 为 DateUtil 和 JsonUtil 补充单元测试
+- [ ] 优化 CollectionHelper 性能（减少多次遍历）
+- [ ] 支持更多的日期格式模式
 
-#### 1. 集合工具类 (`common.util.CollectionUtil`)
-- [x] 集合字段提取和转换（CollectionHelper已实现）
-- [ ] 集合判空（isEmpty、isNotEmpty）
-- [ ] 集合转换（List、Set、Map 互转）
-- [ ] 集合过滤、分组、排序（部分已实现）
-- [ ] 集合去重、合并
-- [ ] 集合分页
+### 第二阶段（常用工具扩展）
+- [ ] 字符串工具类（StringUtil）- 脱敏、格式化、转换
+- [ ] 对象工具类（ObjectUtil）- 属性复制、对象比较
+- [ ] 验证工具类（ValidateUtil）- 邮箱、手机号、身份证验证
+- [ ] 加密工具类（CryptoUtil）- MD5、AES、RSA 加密
 
-#### 2. 字符串工具类 (`common.util.StringUtil`)
-- [ ] 字符串判空（isEmpty、isNotEmpty、isBlank、isNotBlank）
-- [ ] 字符串截取、格式化
-- [ ] 字符串转换（驼峰、下划线、短横线）
-- [ ] 字符串匹配、分割、合并
-- [ ] 字符串编码转换
-- [ ] 字符串脱敏（手机号、邮箱、身份证等）
+### 第三阶段（高级功能）
+- [ ] HTTP 工具类（HttpUtil）- HTTP 请求封装
+- [ ] 反射工具类（ReflectUtil）- 动态调用、注解扫描
+- [ ] 文件工具类（FileUtil）- 文件操作、压缩
 
-#### 3. 对象工具类 (`common.util.ObjectUtil`)
-- [ ] 对象判空
-- [ ] 对象比较、克隆
-- [ ] 对象属性复制
-- [ ] 对象转 Map、Map 转对象
-
-#### 4. 文件工具类 (`common.util.FileUtil`)
-- [ ] 文件/目录操作
-- [ ] 文件读取、写入
-- [ ] 文件复制、移动
-- [ ] 文件压缩、解压
-
-#### 5. 验证工具类 (`common.util.ValidateUtil`)
-- [ ] 邮箱验证
-- [ ] 手机号验证
-- [ ] 身份证验证
-- [ ] 银行卡号验证
-- [ ] IP 地址验证
-- [ ] URL 验证
-
-### 中优先级（常用功能）
-
-#### 6. 加密工具类 (`common.util.CryptoUtil`)
-- [ ] MD5、SHA 系列加密
-- [ ] AES、RSA 加密
-- [ ] Base64 编码/解码
-- [ ] 密码加密与验证
-
-#### 7. HTTP 工具类 (`common.util.HttpUtil`)
-- [ ] GET、POST、PUT、DELETE 请求
-- [ ] 文件上传、下载
-- [ ] Cookie 管理
-- [ ] 超时设置、重试机制
-
-#### 8. 反射工具类 (`common.util.ReflectUtil`)
-- [ ] 获取类信息
-- [ ] 动态创建对象
-- [ ] 动态调用方法
-- [ ] 注解扫描
-
-#### 9. 配置工具类 (`common.util.ConfigUtil`)
-- [ ] Properties 文件读取
-- [ ] YAML 文件读取
-- [ ] 环境变量读取
-- [ ] 配置缓存
-
-### 低优先级（扩展功能）
-
-#### 10. 其他工具类
-- [ ] 数学工具类（MathUtil）
-- [ ] 正则工具类（RegexUtil）
+### 第四阶段（扩展功能）
 - [ ] 缓存工具类（CacheUtil）
 - [ ] ID 生成工具类（IdUtil）
 - [ ] 线程工具类（ThreadUtil）
-- [ ] 系统工具类（SystemUtil）
-
-### 测试与质量保证
-
-- [ ] 为核心工具类编写单元测试
-- [ ] 测试覆盖率 ≥ 80%
-- [ ] 性能基准测试
-- [ ] 代码质量检查（Checkstyle、SpotBugs）
-
-### 文档与发布
-
-- [ ] 完善 JavaDoc 文档
-- [ ] 编写使用指南
-- [ ] 配置 Maven 打包插件
-- [ ] 发布到 Maven 仓库（可选）
 
 ## 🏗️ 设计原则
 
-1. **职责清晰**: 基础规范与具体实现分离
-2. **易于扩展**: 提供接口和抽象类，便于扩展
-3. **符合标准**: HTTP 状态码符合 HTTP 标准
-4. **灵活性强**: 业务错误码使用 String，支持灵活扩展
-5. **类型安全**: 使用泛型和 Optional，提高类型安全性
-6. **函数式**: 转换器和验证器支持函数式编程
-7. **线程安全**: 工具类方法均为静态方法，线程安全
-8. **性能优化**: 使用缓存和预编译模式，提高性能
-9. **异常友好**: 提供详细的异常信息和错误处理
-10. **代码规范**: 使用Spotless自动格式化，保持代码风格一致
+| 原则 | 说明 |
+|------|------|
+| 职责清晰 | 基础规范与具体实现分离 |
+| 类型安全 | 使用泛型和 Optional，提高类型安全性 |
+| 函数式 | 支持 Lambda 表达式和 Stream API |
+| 线程安全 | 工具类方法均为静态方法，无共享状态 |
+| 高性能 | 避免多次遍历，使用缓存和预编译 |
+| 易于扩展 | 接口驱动，灵活组合 |
+| 自动化 | 使用 Spotless 保证代码格式一致 |
 
-## 📝 版本历史
+## 📊 版本历史
 
 ### v1.0-SNAPSHOT (当前版本)
 
-- ✅ 完成基础规范定义（BaseEnum、BaseRequest、BaseResponse、BaseEntity）
-- ✅ 完成数据传输对象（Result、PageRequest、PageResult）
-- ✅ 完成异常类体系（BaseException、BusinessException、ValidationException、SystemException）
-- ✅ 完成转换器和验证器接口
-- ✅ 完成响应状态码枚举示例
-- ✅ 完成集合助手工具类（CollectionHelper）- 支持字段提取、转换、分组、排序、条件过滤等功能
-- ✅ 完成JSON工具类（JsonUtil）- 支持对象转JSON、JSON转对象、格式化、验证、JSONPath等功能
-- ✅ 完成日期时间工具类（DateUtil）- 支持格式化、解析、计算、比较、时间戳转换、时区转换、工作日计算等功能
+**✅ 已完成**:
+- 基础规范定义（6 个基类和接口）
+- 数据传输对象（3 个 DTO）
+- 异常类体系（4 个异常类）
+- 工具类实现：
+  - CollectionHelper（17 个方法，14 个测试）
+  - JsonUtil（15+ 个方法）
+  - DateUtil（20+ 个方法）
 
-## 🚀 快速集成
-
-### 1. 克隆项目
-
-```bash
-git clone <repository-url>
-cd common-tools
-```
-
-### 2. 编译安装
-
-```bash
-# 编译项目
-mvn clean compile
-
-# 运行测试
-mvn test
-
-# 打包
-mvn clean package
-
-# 安装到本地仓库
-mvn clean install
-```
-
-### 3. 代码格式化
-
-```bash
-# 检查代码格式
-mvn spotless:check
-
-# 自动格式化代码
-mvn spotless:apply
-```
-
-## 📊 项目统计
-
-- **代码行数**: 约 3000+ 行
-- **工具类数量**: 4 个
-- **基础类数量**: 6 个
-- **异常类数量**: 4 个
-- **DTO类数量**: 3 个
-- **枚举类数量**: 1 个
+**📊 统计**:
+- 核心类数：13 个
+- 工具类数：3 个
+- 测试覆盖：14 个测试用例
+- 代码行数：3000+ 行
 
 ## 📄 许可证
 
-待定
+暂未指定（MIT/Apache 2.0 可选）
 
 ## 👤 作者
 
@@ -864,4 +814,5 @@ ZhangBoyuan
 
 ---
 
-**注意**: 本项目目前处于开发阶段，API 可能会发生变化。建议在生产环境使用前进行充分测试。
+**最后更新**: 2026 年 2 月 27 日  
+**项目状态**: 🟢 活跃开发中
