@@ -132,7 +132,8 @@ public class CollectionHelper {
         if (list == null || list.isEmpty()) {
             return Collections.emptyList();
         }
-        return list.stream().map(fieldExtractor).collect(Collectors.toList());
+        // 过滤掉 null 元素并允许 extractor 返回 null
+        return list.stream().filter(Objects::nonNull).map(fieldExtractor).collect(Collectors.toList());
     }
 
     /**
@@ -256,8 +257,11 @@ public class CollectionHelper {
         if (list == null || list.isEmpty()) {
             return Collections.emptyMap();
         }
+        // 跳过 null 元素或 key 为 null 的条目
         return list.stream().filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(keyExtractor, Collectors.mapping(valueExtractor, Collectors.toList())));
+                .map(e -> new AbstractMap.SimpleEntry<>(keyExtractor.apply(e), valueExtractor.apply(e)))
+                .filter(entry -> entry.getKey() != null).collect(Collectors.groupingBy(Map.Entry::getKey,
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
     }
 
     /**
@@ -277,7 +281,10 @@ public class CollectionHelper {
             return Collections.emptyMap();
         }
         return list.stream().filter(Objects::nonNull)
-                .collect(Collectors.toMap(keyExtractor, valueExtractor, (v1, v2) -> v1));
+                .map(e -> new AbstractMap.SimpleEntry<>(keyExtractor.apply(e), valueExtractor.apply(e)))
+                // 跳过 key 或 value 为 null 的条目
+                .filter(entry -> entry.getKey() != null && entry.getValue() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1));
     }
 
     /**
@@ -328,7 +335,10 @@ public class CollectionHelper {
         if (list == null || list.isEmpty()) {
             return;
         }
-        list.sort(Comparator.comparing(fieldExtractor, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+        // 外层 nullsLast 保障列表中的 null 元素排在末尾
+        // 内层比较器对字段进行降序排序，并对字段值为 null 的元素也放在末尾
+        list.sort(Comparator
+                .nullsLast(Comparator.comparing(fieldExtractor, Comparator.nullsLast(Comparator.reverseOrder()))));
     }
 
     /**

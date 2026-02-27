@@ -19,6 +19,7 @@
         <jackson.version>2.20.1</jackson.version>
         <jackson-annotations.version>2.20</jackson-annotations.version>
         <jsonpath.version>2.10.0</jsonpath.version>
+        <junit-jupiter.version>6.1.0-M1</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,13 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>${jsonpath.version}</version>
+        </dependency>
+        <!-- 单元测试框架 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
