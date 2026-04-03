@@ -240,4 +240,87 @@ class CollectionHelperTest {
         assertFalse(set.stream().anyMatch(Objects::isNull), "Set 中不应包含 null");
         assertEquals(6, set.size(), "Set 应包含 6 个不同的值");
     }
+
+    /**
+     * 测试 hasIntersection：检查两个列表是否存在交集（null值不计入）
+     */
+    @Test
+    void hasIntersection() {
+        // 正常情况：存在交集
+        List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(2, 3, 4);
+        assertTrue(CollectionHelper.hasIntersection(list1, list2), "应存在交集");
+
+        // 无交集
+        List<Integer> list3 = Arrays.asList(1, 2);
+        List<Integer> list4 = Arrays.asList(3, 4);
+        assertFalse(CollectionHelper.hasIntersection(list3, list4), "应无交集");
+
+        // null参数
+        assertFalse(CollectionHelper.hasIntersection(null, list1), "null列表应返回false");
+        assertFalse(CollectionHelper.hasIntersection(list1, null), "null列表应返回false");
+
+        // 空列表
+        assertFalse(CollectionHelper.hasIntersection(Collections.emptyList(), list1), "空列表应返回false");
+
+        // 包含null元素：null不计入交集
+        List<Integer> listWithNull = Arrays.asList(null, 1, 2);
+        List<Integer> listWithOnlyNull = Arrays.asList(null, null);
+        assertTrue(CollectionHelper.hasIntersection(listWithNull, list2), "非null元素应计入交集");
+        assertFalse(CollectionHelper.hasIntersection(listWithOnlyNull, listWithOnlyNull), "全null列表应无交集");
+
+        // 大小列表优化：小列表转Set，大列表遍历
+        List<Integer> smallList = Arrays.asList(1);
+        List<Integer> largeList = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            largeList.add(i + 100);
+        }
+        assertFalse(CollectionHelper.hasIntersection(smallList, largeList), "大小列表无交集");
+        largeList.add(1);
+        assertTrue(CollectionHelper.hasIntersection(smallList, largeList), "大小列表有交集");
+    }
+
+    /**
+     * 测试 intersection：计算两个列表的交集，保持list1顺序，去重，排除null
+     */
+    @Test
+    void intersection() {
+        // 正常情况：保持list1顺序
+        List<Integer> list1 = Arrays.asList(3, 1, 2, 3);
+        List<Integer> list2 = Arrays.asList(2, 3);
+        List<Integer> result = CollectionHelper.intersection(list1, list2);
+        assertEquals(Arrays.asList(3, 2), result, "应保持list1顺序并去重");
+
+        // 无交集
+        List<Integer> list3 = Arrays.asList(1, 2);
+        List<Integer> list4 = Arrays.asList(3, 4);
+        assertTrue(CollectionHelper.intersection(list3, list4).isEmpty(), "无交集应返回空列表");
+
+        // null参数
+        assertTrue(CollectionHelper.intersection(null, list1).isEmpty(), "null参数应返回空列表");
+        assertTrue(CollectionHelper.intersection(list1, null).isEmpty(), "null参数应返回空列表");
+
+        // 空列表
+        assertTrue(CollectionHelper.intersection(Collections.emptyList(), list1).isEmpty(), "空列表应返回空列表");
+
+        // 包含null元素：null被过滤
+        List<Integer> listWithNull = Arrays.asList(null, 1, 2, null);
+        List<Integer> normalList = Arrays.asList(1, 2, 3);
+        List<Integer> resultWithNull = CollectionHelper.intersection(listWithNull, normalList);
+        assertEquals(Arrays.asList(1, 2), resultWithNull, "null元素应被过滤");
+        assertFalse(resultWithNull.contains(null), "结果中不应包含null");
+
+        // 去重验证
+        List<Integer> dupList1 = Arrays.asList(1, 1, 2, 2, 3);
+        List<Integer> dupList2 = Arrays.asList(1, 2);
+        List<Integer> dedupResult = CollectionHelper.intersection(dupList1, dupList2);
+        assertEquals(Arrays.asList(1, 2), dedupResult, "应去重并保持顺序");
+        assertEquals(2, dedupResult.size(), "去重后大小应为2");
+
+        // 字符串类型测试
+        List<String> strList1 = Arrays.asList("b", "a", "c", "b");
+        List<String> strList2 = Arrays.asList("a", "c", "d");
+        List<String> strResult = CollectionHelper.intersection(strList1, strList2);
+        assertEquals(Arrays.asList("a", "c"), strResult, "字符串类型应保持list1顺序，且'b'不在list2中");
+    }
 }

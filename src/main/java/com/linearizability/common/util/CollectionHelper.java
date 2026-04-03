@@ -404,4 +404,56 @@ public class CollectionHelper {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    /**
+     * 检查两个列表是否有重复元素（null值不算）
+     *
+     * @param  list1 第一个列表
+     * @param  list2 第二个列表
+     * @param  <T>   列表元素类型
+     * @return       如果存在重复元素返回true，否则返回false
+     */
+    public static <T> boolean hasIntersection(List<T> list1, List<T> list2) {
+        if (list1 == null || list2 == null || list1.isEmpty() || list2.isEmpty()) {
+            return false;
+        }
+
+        // 将较小的列表转为Set以提高查找效率
+        Set<T> smallerSet;
+        List<T> largerList;
+        if (list1.size() <= list2.size()) {
+            smallerSet = list1.stream().filter(Objects::nonNull).collect(Collectors.toSet());
+            largerList = list2;
+        } else {
+            smallerSet = list2.stream().filter(Objects::nonNull).collect(Collectors.toSet());
+            largerList = list1;
+        }
+
+        // 如果较小的集合为空，则没有交集
+        if (smallerSet.isEmpty()) {
+            return false;
+        }
+
+        // 检查较大列表中的元素是否存在于较小集合中
+        return largerList.stream().filter(Objects::nonNull).anyMatch(smallerSet::contains);
+    }
+
+    /**
+     * 计算两个列表的交集（不包含null值），结果保持list1中的元素顺序
+     *
+     * @param  list1 第一个列表
+     * @param  list2 第二个列表
+     * @param  <T>   列表元素类型
+     * @return       两个列表的交集，如果没有交集则返回空列表
+     */
+    public static <T> List<T> intersection(List<T> list1, List<T> list2) {
+        if (list1 == null || list2 == null || list1.isEmpty() || list2.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Set<T> set2 = list2.stream().filter(Objects::nonNull).collect(Collectors.toSet());
+
+        // 按list1顺序筛选出同时存在于set2中的非null元素，并去重
+        return list1.stream().filter(Objects::nonNull).filter(set2::contains).distinct().collect(Collectors.toList());
+    }
+
 }
