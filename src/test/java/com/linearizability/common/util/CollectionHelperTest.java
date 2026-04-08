@@ -281,6 +281,32 @@ class CollectionHelperTest {
     }
 
     /**
+     * 测试 extractFieldList 带转换器版本：提取字段并进行类型转换
+     */
+    @Test
+    void extractFieldListWithConverter() {
+        // 正常情况：Integer -> String 转换（null 字段值被过滤）
+        List<String> result = CollectionHelper.extractFieldList(list, Dummy::getA, String::valueOf);
+        assertEquals(Arrays.asList("1", "2", "1"), result);
+
+        // null 列表返回空列表
+        assertTrue(CollectionHelper.extractFieldList(null, Dummy::getA, String::valueOf).isEmpty());
+
+        // 空列表返回空列表
+        assertTrue(CollectionHelper.extractFieldList(Collections.emptyList(), Dummy::getA, String::valueOf).isEmpty());
+
+        // 转换器返回 null 的情况（如空字符串转 Integer）
+        List<Dummy> stringList = Arrays.asList(new Dummy(1, "123"), new Dummy(2, ""), new Dummy(3, "456"));
+        Function<String, Integer> parseInt = s -> s == null || s.isEmpty() ? null : Integer.parseInt(s);
+        List<Integer> parsed = CollectionHelper.extractFieldList(stringList, Dummy::getB, parseInt);
+        // 空字符串被转为 null，然后被过滤
+        assertEquals(Arrays.asList(123, 456), parsed);
+
+        // 验证 null 元素被过滤（list 包含 null 元素）
+        assertEquals(3, result.size(), "应过滤 null 元素和 null 字段值");
+    }
+
+    /**
      * 测试 intersection：计算两个列表的交集，保持list1顺序，去重，排除null
      */
     @Test

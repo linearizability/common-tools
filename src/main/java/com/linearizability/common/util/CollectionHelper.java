@@ -188,6 +188,26 @@ public class CollectionHelper {
     }
 
     /**
+     * 从列表中提取所有元素的指定字段值，并进行类型转换，形成新的列表
+     *
+     * @param  list           列表
+     * @param  fieldExtractor 字段提取器
+     * @param  converter      类型转换器
+     * @param  <T>            列表元素类型
+     * @param  <R>            原始字段类型
+     * @param  <V>            目标转换类型
+     * @return                转换后的字段值列表，如果输入列表为空返回空列表
+     */
+    public static <T, R, V> List<V> extractFieldList(List<T> list, Function<T, R> fieldExtractor,
+            Function<R, V> converter) {
+        if (list == null || list.isEmpty() || converter == null) {
+            return Collections.emptyList();
+        }
+        return list.stream().filter(Objects::nonNull).map(fieldExtractor).filter(Objects::nonNull).map(converter)
+                .filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+    /**
      * 根据条件从列表中提取字段值
      *
      * @param  list           列表
