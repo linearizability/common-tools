@@ -344,6 +344,23 @@ public class CollectionHelper {
     }
 
     /**
+     * 按指定字段对列表元素进行分组计数
+     *
+     * @param  list         列表
+     * @param  keyExtractor 分组键提取器
+     * @param  <T>          列表元素类型
+     * @param  <K>          分组键类型
+     * @return              每个分组键对应的元素个数Map，如果列表为空返回空Map；键为null的元素会被跳过
+     */
+    public static <T, K> Map<K, Long> countByField(List<T> list, Function<T, K> keyExtractor) {
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        return list.stream().filter(Objects::nonNull).map(keyExtractor).filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    /**
      * 按指定字段降序排序，null值排在最后
      *
      * @param list           列表

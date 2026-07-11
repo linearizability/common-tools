@@ -349,4 +349,41 @@ class CollectionHelperTest {
         List<String> strResult = CollectionHelper.intersection(strList1, strList2);
         assertEquals(Arrays.asList("a", "c"), strResult, "字符串类型应保持list1顺序，且'b'不在list2中");
     }
+
+    /**
+     * 测试 countByField：按指定字段对元素分组计数
+     *
+     * 场景： 1. null 列表返回空 Map。 2. 空列表返回空 Map。 3. 正常列表按字段分组计数，null 元素被跳过，键为 null 的元素被跳过。 4. 每个字段值的计数应准确反映其出现次数。
+     *
+     * 注：list 包含 [Dummy(1,"x"), Dummy(null,"y"), Dummy(2,null), null, Dummy(1,"z")]
+     */
+    @Test
+    void countByField() {
+        // null 列表返回空 Map
+        assertTrue(CollectionHelper.countByField(null, Dummy::getA).isEmpty(), "null 列表应返回空 Map");
+
+        // 空列表返回空 Map
+        assertTrue(CollectionHelper.countByField(Collections.<Dummy>emptyList(), Dummy::getA).isEmpty(), "空列表应返回空 Map");
+
+        // 按 getA 分组计数：null 元素被跳过，键为 null 的元素被跳过
+        // 有效值：1, 2, 1 -> {1: 2, 2: 1}
+        Map<Integer, Long> countByA = CollectionHelper.countByField(list, Dummy::getA);
+        assertEquals(2, countByA.size(), "应只包含两个不同的非 null 键");
+        assertEquals(2L, countByA.get(1), "键 1 应出现两次");
+        assertEquals(1L, countByA.get(2), "键 2 应出现一次");
+        assertFalse(countByA.containsKey(null), "结果不应包含 null 键");
+
+        // 按 getB 分组计数：null 元素被跳过，字段值为 null 的元素被跳过
+        // 有效值："x", "y", "z" -> {"x":1, "y":1, "z":1}
+        Map<String, Long> countByB = CollectionHelper.countByField(list, Dummy::getB);
+        assertEquals(3, countByB.size(), "应包含三个不同的非 null 键");
+        assertEquals(1L, countByB.get("x"));
+        assertEquals(1L, countByB.get("y"));
+        assertEquals(1L, countByB.get("z"));
+        assertFalse(countByB.containsKey(null), "结果不应包含 null 键");
+
+        // 全部键为 null 时返回空 Map
+        List<Dummy> allNullKey = Arrays.asList(new Dummy(null, "a"), new Dummy(null, "b"));
+        assertTrue(CollectionHelper.countByField(allNullKey, Dummy::getA).isEmpty(), "键全为 null 时应返回空 Map");
+    }
 }
